@@ -166,6 +166,21 @@ require('lazy').setup(
 
     'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
 
+    {
+      'tpope/vim-obsession',
+      lazy = false, -- load at startup
+      config = function()
+        -- Automatically start a session if one isn’t already running
+        vim.api.nvim_create_autocmd('VimEnter', {
+          callback = function()
+            if not vim.g.this_obsession then
+              vim.cmd 'Obsession'
+            end
+          end,
+        })
+      end,
+    },
+
     -- NOTE: Plugins can also be added by using a table,
     -- with the first argument being the link and the following
     -- keys can be used to configure plugin behavior/loading/etc.
@@ -897,7 +912,7 @@ require('lazy').setup(
     --    This is the easiest way to modularize your config.
     --
     --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-    import = 'custom.plugins',
+    { import = 'custom.plugins' },
   }, --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
